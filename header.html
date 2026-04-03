@@ -1,0 +1,144 @@
+<!-- ============================================================
+     GAYATRI MINERALS — SHARED HEADER
+     Loaded via fetch('header.html') in scripts.js
+     ============================================================ -->
+<nav class="gm-nav" id="gm-nav">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo2.webp" alt="Gayatri Minerals Logo" class="nav-logo-img"
+           onerror="this.style.display='none'">
+      <div class="nav-logo-text">
+        <div class="brand">Gayatri Minerals</div>
+        <div class="sub">Est. 1989 · Porbandar</div>
+      </div>
+    </a>
+
+    <!-- Desktop nav links -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" data-page="index.html">Home</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+          Products
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/>
+          </svg>
+        </button>
+        <div class="dropdown-panel">
+          <a href="chalk-powder.html">Chalk Powder</a>
+          <a href="gypsum-powder.html">Gypsum Powder</a>
+         
+        </div>
+      </li>
+      <li><a href="about.html" data-page="about.html">About Us</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </div>
+
+    <!-- Hamburger (visible on mobile ≤768px) -->
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <!-- Menu icon (3 lines) -->
+      <svg class="icon-menu" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <!-- Close icon (X) — shown when menu is open -->
+      <svg class="icon-close" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+  </div>
+
+  <!-- Mobile menu (slides open from hamburger) -->
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile menu">
+    <a href="index.html" data-page="index.html">Home</a>
+
+    <!-- Products toggle -->
+    <button class="mobile-sub-toggle" type="button" aria-expanded="false">
+      Products
+      <svg class="mobile-sub-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </button>
+    <div class="mobile-sub">
+      <div>
+        <a href="chalk-powder.html">Chalk Powder</a>
+        <a href="gypsum-powder.html">Gypsum Powder</a>
+        <a href="rubber-profiles.html">Rubber Profiles</a>
+        <a href="pvc-profiles.html">PVC Profiles</a>
+      </div>
+    </div>
+
+    <a href="about.html" data-page="about.html">About Us</a>
+    <a href="contact.html" data-page="contact.html" style="color:var(--gold-light,#f59c4a)">Contact Us</a>
+  </div>
+</nav>
+
+<!-- ── Bottom Navigation Bar (mobile only) ── -->
+<nav class="bottom-nav" aria-label="Mobile navigation">
+  <a href="index.html" class="bn-item" data-page="index.html">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10"/>
+    </svg>
+    <span>Home</span>
+  </a>
+
+  <button class="bn-item" id="bnProductsBtn" type="button">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </svg>
+    <span>Products</span>
+  </button>
+
+  <a href="about.html" class="bn-item" data-page="about.html">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="4"/>
+      <path stroke-linecap="round" d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/>
+    </svg>
+    <span>About</span>
+  </a>
+
+  <a href="contact.html" class="bn-item bn-item--cta" data-page="contact.html">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75A2.25 2.25 0 014.5 4.5h15a2.25 2.25 0 012.25 2.25v10.5A2.25 2.25 0 0119.5 19.5h-15a2.25 2.25 0 01-2.25-2.25V6.75z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.5l9.75 6.75L21.75 7.5"/>
+    </svg>
+    <span>Contact</span>
+  </a>
+</nav>
+
+<!-- Products slide-up sheet backdrop -->
+<div class="bn-backdrop" id="bnBackdrop"></div>
+
+<!-- Products slide-up sheet -->
+<div class="bn-sheet" id="bnSheet" role="dialog" aria-modal="true" aria-label="Products menu">
+  <div class="bn-sheet-handle"></div>
+  <div class="bn-sheet-title">Our Products</div>
+  <a href="chalk-powder.html" class="bn-sheet-item">
+    <span class="bn-sheet-dot"></span>
+    <span>Chalk Powder</span>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </a>
+  <a href="gypsum-powder.html" class="bn-sheet-item">
+    <span class="bn-sheet-dot"></span>
+    <span>Gypsum Powder</span>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </a>
+  <a href="rubber-profiles.html" class="bn-sheet-item">
+    <span class="bn-sheet-dot"></span>
+    <span>Rubber Profiles</span>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </a>
+  <a href="pvc-profiles.html" class="bn-sheet-item">
+    <span class="bn-sheet-dot"></span>
+    <span>PVC Profiles</span>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </a>
+</div>
