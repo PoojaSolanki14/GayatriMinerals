@@ -312,7 +312,6 @@ a { text-decoration: none; }
   background: #f5f8fc; color: #2a3f5f;
   border-radius: 10px; padding: 16px 20px;
   font-size: 0.87rem; line-height: 1.6;
-  border-left: 3px solid var(--gold);
   font-family: 'DM Sans', sans-serif;
   border: 1px solid #dce8f5; border-left: 3px solid var(--gold);
 }
@@ -342,11 +341,11 @@ a { text-decoration: none; }
 
 .footer-socials { display: flex; gap: 8px; }
 .footer-social-btn {
-  width: 34px; height: 34px;
+  width: 44px; height: 44px;
   background: rgba(255,255,255,0.06);
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  color: #5a7a9a; font-size: 0.78rem; font-weight: 700;
+  color: #fff; font-size: 1.1rem; font-weight: 700;
   text-decoration: none; transition: background 0.2s, color 0.2s;
 }
 .footer-social-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
@@ -661,11 +660,40 @@ a { text-decoration: none; }
 .detail-row .dtitle { font-weight: 600; font-size: 0.87rem; color: #0f1e3c; font-family: 'DM Sans', sans-serif; }
 .detail-row .ddesc  { font-size: 0.81rem; color: #6a8098; margin-top: 4px; line-height: 1.6; font-family: 'DM Sans', sans-serif; }
 
-/* Gallery */
+/* ============================================================
+   CHALK POWDER GALLERY  — 7 images (4 top row + 3 centred bottom)
+   ============================================================ */
 .chalk-gallery-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  display: grid;
+  gap: 16px;
+  /* Desktop: 8-column base so we can centre 3 items in the second row */
+  grid-template-columns: repeat(8, 1fr);
 }
-@media (max-width: 700px) { .chalk-gallery-grid { grid-template-columns: repeat(2,1fr); } }
+
+/* Row 1: 4 items, each spanning 2 of 8 columns = equal quarters */
+.chalk-gallery-grid .chalk-gallery-item:nth-child(1) { grid-column: 1 / span 2; }
+.chalk-gallery-grid .chalk-gallery-item:nth-child(2) { grid-column: 3 / span 2; }
+.chalk-gallery-grid .chalk-gallery-item:nth-child(3) { grid-column: 5 / span 2; }
+.chalk-gallery-grid .chalk-gallery-item:nth-child(4) { grid-column: 7 / span 2; }
+
+/* Row 2: 3 items centred — offset by 1 column so they sit in the middle */
+.chalk-gallery-grid .chalk-gallery-item:nth-child(5) { grid-column: 2 / span 2; }
+.chalk-gallery-grid .chalk-gallery-item:nth-child(6) { grid-column: 4 / span 2; }
+.chalk-gallery-grid .chalk-gallery-item:nth-child(7) { grid-column: 6 / span 2; }
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .chalk-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .chalk-gallery-grid .chalk-gallery-item { grid-column: span 1 !important; }
+}
+
+/* Mobile: 2 columns (keep same as tablet) */
+@media (max-width: 480px) {
+  .chalk-gallery-grid { gap: 10px; }
+}
+
 .chalk-gallery-item {
   border-radius: 14px; overflow: hidden; aspect-ratio: 1/1;
   background: #e8eef5; box-shadow: var(--shadow-sm);
@@ -761,6 +789,7 @@ a { text-decoration: none; }
 .rp-dot.active { background: #e07b2a; transform: scale(1.25); }
 @media (max-width: 1023px) { .rp-slide { min-width: calc(100%/2); } .rp-slide img { height: 240px; } }
 @media (max-width: 639px)  { .rp-slide { min-width: 100%; } .rp-slide img { height: 220px; } }
+
 /* ============================================================
    BOTTOM NAVIGATION BAR  (mobile only, ≤768px)
    ============================================================ */
