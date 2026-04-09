@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="images/GypsumPowder1.webp">
+  <link rel="preload" as="image" href="images/GypsumPowder2.webp">
+  <link rel="preload" as="image" href="images/GypsumPowder3.webp">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -35,12 +39,12 @@
     <div class="prod-grid">
       <div class="fade-in">
         <div class="prod-img-main" style="background:#e3dbd0">
-          <img src="images/GypsumPowder1.webp" alt="Gypsum plaster powder used for wall finishing and construction">
+          <img src="images/GypsumPowder1.webp" alt="Gypsum plaster powder used for wall finishing and construction" fetchpriority="high" decoding="async">
         </div>
         <div class="prod-img-row">
           <div class="prod-badge" style="background:var(--navy,#0f1e3c)">
-            <div style="color:#f59c4a;font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem">Bulk</div>
-            <div style="color:#4a6a8a;font-size:0.72rem;margin-top:4px;font-family:'DM Sans',sans-serif">Orders Available</div>
+            <div style="color:#f59c4a;font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem">ISO</div>
+            <div style="color:#4a6a8a;font-size:0.72rem;margin-top:4px;font-family:'DM Sans',sans-serif">Certified Quality</div>
           </div>
           <div class="prod-badge" style="background:#e07b2a">
             <div style="color:#fff;font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem">PoP</div>
@@ -51,7 +55,8 @@
           <div class="label">For Gypsum Powder Queries</div>
           <p>
             ELEMENTS (INDIA), 2nd Gate, Metoda, RAJKOT: 360021, Gujarat<br>
-            <a href="mailto:elementsindia13@gmail.com">elementsindia13@gmail.com</a><br>
+            <a href="/cdn-cgi/l/email-protection#284d444d454d465c5b41464c4149191b684f45494144064b4745"><span class="__cf_email__" data-cfemail="4a2f262f272f243e3923242e232b7b790a2d272b232664292527">gayatriminerals.gm@gmail.com
+</span></a><br>
             <a href="tel:9825919197">+91 98259 19197</a> / <a href="tel:9879454515">+91 98794 54515</a>
           </p>
         </div>
@@ -67,35 +72,35 @@
       </div>
     </div>
 
-    <!-- Gallery -->
+    <!-- Gallery Slider -->
     <div style="margin-top:56px">
       <div class="section-head fade-in" style="text-align:center;margin-bottom:28px">
         <span class="section-label">Gallery</span>
         <h2 style="font-size:1.9rem">Product Images</h2>
       </div>
-      <div class="chalk-gallery-grid">
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder1.webp" alt="Gypsum powder fine texture close-up" loading="lazy">
+      <div class="cg-slider-wrap">
+        <button class="cg-arrow" id="cgPrev" aria-label="Previous images">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <div class="cg-viewport">
+          <div class="cg-track" id="cgTrack">
+            <div class="cg-slide"><img src="images/GypsumPowder1.webp" alt="Gypsum powder fine texture close-up" fetchpriority="high" decoding="async"></div>
+            <div class="cg-slide"><img src="images/GypsumPowder2.webp" alt="Gypsum powder bags ready for dispatch" decoding="async"></div>
+            <div class="cg-slide"><img src="images/GypsumPowder3.webp" alt="Plaster of Paris used in wall plastering application" loading="lazy"></div>
+            <div class="cg-slide"><img src="images/GypsumPowder4.webp" alt="Gypsum mould casting for decorative elements" loading="lazy"></div>
+            <div class="cg-slide"><img src="images/GypsumPowder5.webp" alt="Gypsum mould casting for decorative elements" loading="lazy"></div>
+            <div class="cg-slide"><img src="images/GypsumPowder6.webp" alt="Gypsum mould casting for decorative elements" loading="lazy"></div>
+          </div>
         </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder2.webp" alt="Gypsum powder bags ready for dispatch" loading="lazy">
-        </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder3.webp" alt="Plaster of Paris used in wall plastering application" loading="lazy">
-        </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder4.webp" alt="Gypsum mould casting for decorative elements" loading="lazy">
-        </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder5.webp" alt="Gypsum mould casting for decorative elements" loading="lazy">
-        </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder6.webp" alt="Gypsum mould casting for decorative elements" loading="lazy">
-        </div>
-        <div class="chalk-gallery-item fade-in">
-          <img src="images/GypsumPowder7.webp" alt="Gypsum mould casting for decorative elements" loading="lazy">
-        </div>
+        <button class="cg-arrow" id="cgNext" aria-label="Next images">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
       </div>
+      <div class="cg-dots" id="cgDots"></div>
     </div>
 
     <!-- Uses -->
