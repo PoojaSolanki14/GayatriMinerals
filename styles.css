@@ -276,12 +276,13 @@ a { text-decoration: none; }
   .gm-nav { top: 0; }
   body { padding-top: 76px; }
   .nav-links { display: none; }
-  .nav-cta-wrap { display: flex; }
-  .hamburger { display: block; }
-  .gm-nav .nav-cta {
-    padding: 9px 16px;
-    font-size: 0.82rem;
-    letter-spacing: 0.05em;
+  /* Hide CTA button on mobile — bottom nav already has Contact */
+  .nav-cta-wrap { display: none; }
+  .hamburger { display: block; flex-shrink: 0; }
+  /* Tighten nav padding so logo + hamburger always fit */
+  .nav-inner {
+    padding: 0 16px;
+    gap: 12px;
   }
 }
 
