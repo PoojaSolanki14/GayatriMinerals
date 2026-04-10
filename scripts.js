@@ -312,9 +312,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Helpers ─────────────────────────────────────────────*/
   function visCount() {
-    return window.innerWidth < 480 ? 1
-         : window.innerWidth < 700 ? 2
-         : window.innerWidth < 1024 ? 3 : 4;
+    return window.innerWidth < 700 ? 1
+         : window.innerWidth < 1100 ? 3 : 3;
   }
 
   function logicalFromRaw(r) {
