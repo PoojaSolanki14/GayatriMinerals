@@ -291,40 +291,9 @@ document.addEventListener('DOMContentLoaded', function () {
   loadComponent('header-placeholder', 'header.html');
   loadComponent('footer-placeholder', 'footer.html');
   initFadeIn();
-  injectGalleryImages();
   initImgFallbacks();
   initHeroSlider();
 });
-
-/* ── Inject Gallery Images (keeps src out of HTML source) ── */
-function injectGalleryImages() {
-  var track = document.getElementById('cgTrack');
-  if (!track) return;
-  var imgs = [
-    { s: 'images/home1.webp', a: 'Gayatri Minerals facility overview' },
-    { s: 'images/home2.webp', a: 'Chalk powder production unit' },
-    { s: 'images/home3.webp', a: 'Mineral processing area' },
-    { s: 'images/home4.webp', a: 'Whiting chalk mining site Porbandar' },
-    { s: 'images/home5.webp', a: 'Bulk chalk powder storage' },
-    { s: 'images/home6.webp', a: 'Packaging unit at Gayatri Minerals' },
-    { s: 'images/home7.webp', a: 'Quality testing facility' },
-    { s: 'images/home8.webp', a: 'Dispatch and logistics at plant' },
-    { s: 'images/home9.webp', a: 'Gayatri Minerals plant exterior' }
-  ];
-  imgs.forEach(function (item, idx) {
-    var slide = document.createElement('div');
-    slide.className = 'cg-slide';
-    var img = document.createElement('img');
-    img.src = item.s;
-    img.alt = item.a;
-    img.decoding = 'async';
-    if (idx > 0) img.loading = 'lazy';
-    img.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-    img.draggable = false;
-    slide.appendChild(img);
-    track.appendChild(slide);
-  });
-}
 
 /* ── Gallery Slider — Professional Infinite Carousel ── */
 (function () {
@@ -453,14 +422,13 @@ function injectGalleryImages() {
 
   /* ── Silently snap if in clone zone ─────────────────────*/
   function snapIfNeeded() {
-    var total = REAL_TOTAL + clonesBefore + visCount();
     if (rawPos >= clonesBefore + REAL_TOTAL) {
       rawPos = clonesBefore + (rawPos - (clonesBefore + REAL_TOTAL));
       setPos(rawPos, false);
     } else if (rawPos < clonesBefore) {
       rawPos = clonesBefore + REAL_TOTAL + rawPos;
       setPos(rawPos, false);
-    updateSlideStates();
+      updateSlideStates();
     }
   }
 
