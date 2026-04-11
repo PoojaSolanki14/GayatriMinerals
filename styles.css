@@ -931,91 +931,113 @@ a { text-decoration: none; }
 }
 
 /* ── Slider wrapper ── */
+/* ============================================================
+   GALLERY SLIDER — Fully Responsive, Mobile-Perfect
+   ============================================================ */
+
+/*
+  ARCHITECTURE:
+  • .cg-slider-wrap  — outer container (flex row: arrow | viewport | arrow)
+  • .cg-viewport     — clips to show N slides; overflow:hidden; NO padding
+  • .cg-track        — flex row of all slides; translateX moves it
+  • .cg-slide        — each slide; width = 100%/visCount, NO horizontal padding
+  • .cg-slide-inner  — inner card with aspect-ratio; contains the img
+  • img              — absolute fill inside .cg-slide-inner
+
+  KEY FIX: Slides have ZERO horizontal padding. All visual gap is added
+  as a margin/padding on .cg-slide-inner, NOT on .cg-slide itself.
+  This means the JS translate math stays perfectly accurate (slide width
+  == viewport width / visCount) while cards still have a visible gutter.
+*/
+
+/* ── Outer wrap ── */
 .cg-slider-wrap {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 0 20px;
+  gap: 12px;
+  padding: 8px 0 20px;
 }
 
-/* ── Viewport ── */
+/* ── Viewport — strict clip, no internal padding ── */
 .cg-viewport {
   flex: 1;
-  position: relative;
+  min-width: 0;          /* prevent flex child from overflowing */
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 18px;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  padding: 12px 0;
+  touch-action: pan-y;   /* allow vertical scroll; JS handles horizontal */
 }
 .cg-viewport.is-dragging { cursor: grabbing; }
 
-/* ── Track ── */
+/* ── Track — flex container, no margins ── */
 .cg-track {
   display: flex;
   will-change: transform;
-  margin: 0;
   align-items: stretch;
+  /* transition is set dynamically by JS */
 }
 
-/* ── Slide ── */
+/* ── Slide — exact fraction of viewport, ZERO padding ── */
 .cg-slide {
+  /* Desktop: 3-up */
   min-width: calc(100% / 3);
-  padding: 0 10px;
-  box-sizing: border-box;
+  width:     calc(100% / 3);
   flex-shrink: 0;
-  transition: transform 0.45s ease, opacity 0.45s ease;
-  opacity: 0.75;
+  box-sizing: border-box;
+  padding: 0;                    /* NO horizontal padding — gutter is on inner */
+  transition: opacity 0.4s ease;
+  opacity: 0.78;
 }
-.cg-slide.is-active {
-  opacity: 1;
-  transform: none;
-}
-.cg-slide.is-side {
-  opacity: 0.85;
-}
+.cg-slide.is-active  { opacity: 1; }
+.cg-slide.is-side    { opacity: 0.88; }
 
-/* ── Inner card ── */
+/* ── Inner card — visual gutter lives HERE ── */
 .cg-slide-inner {
   position: relative;
   overflow: hidden;
   width: 100%;
-  /* Fixed height so all cards are equal — no aspect-ratio surprises */
-  height: 300px;
-  border-radius: 16px;
+  /* Aspect ratio drives height — consistent across all viewports */
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
   background: #e8eef5;
+  /* Gutter: symmetric inset so both edges look equal */
+  margin: 6px 8px;
+  width: calc(100% - 16px);      /* compensate for margin */
   box-shadow: 0 4px 20px rgba(15,30,60,0.10), 0 1px 4px rgba(15,30,60,0.06);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  transition: box-shadow 0.35s ease, transform 0.3s ease;
 }
 .cg-slide.is-active .cg-slide-inner {
-  box-shadow: 0 12px 40px rgba(15,30,60,0.18), 0 2px 8px rgba(224,123,42,0.12);
+  box-shadow: 0 10px 36px rgba(15,30,60,0.16), 0 2px 8px rgba(224,123,42,0.10);
 }
-.cg-slide-inner:hover {
-  box-shadow: 0 20px 52px rgba(15,30,60,0.22), 0 3px 14px rgba(224,123,42,0.16);
-  transform: translateY(-6px);
+@media (hover: hover) {
+  /* Only apply hover lift on real pointer devices */
+  .cg-slide-inner:hover {
+    box-shadow: 0 18px 48px rgba(15,30,60,0.20), 0 3px 12px rgba(224,123,42,0.14);
+    transform: translateY(-4px);
+  }
 }
 .cg-slide-inner.loaded { background: #e8eef5; }
 
-/* ── Image inside slide — always fills card completely ── */
+/* ── Image — absolute fill, consistent crop ── */
 .cg-slide img {
   position: absolute;
-  top: 0; left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
   border-radius: 0;
-  /* Start invisible until loaded */
   opacity: 0;
-  transition: opacity 0.4s ease, transform 0.45s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   transform: scale(1.04);
   pointer-events: none;
-  /* Override global skeleton shimmer for slides — dark bg handles it */
   background: none;
   animation: none;
+  max-width: none;           /* override global img max-width:100% */
 }
 .cg-slide img.img-loaded {
   opacity: 1;
@@ -1023,11 +1045,11 @@ a { text-decoration: none; }
   animation: none;
   background: none;
 }
-.cg-slide-inner:hover img {
-  transform: scale(1.07);
+@media (hover: hover) {
+  .cg-slide-inner:hover img { transform: scale(1.06); }
 }
 
-/* Skeleton shimmer for gallery cards (while image loads) */
+/* ── Skeleton shimmer for unloaded cards ── */
 .cg-slide-inner:not(.loaded)::before {
   content: '';
   position: absolute;
@@ -1035,7 +1057,7 @@ a { text-decoration: none; }
   background: linear-gradient(90deg, #dce4ef 25%, #eaf0f8 50%, #dce4ef 75%);
   background-size: 600px 100%;
   animation: skeleton-shimmer 1.4s ease-in-out infinite;
-  border-radius: 16px;
+  border-radius: 14px;
   z-index: 0;
 }
 
@@ -1044,7 +1066,7 @@ a { text-decoration: none; }
 
 /* ── Arrow buttons ── */
 .cg-arrow {
-  width: 48px; height: 48px;
+  width: 46px; height: 46px;
   border-radius: 50%;
   border: none;
   background: #ffffff;
@@ -1055,75 +1077,132 @@ a { text-decoration: none; }
   z-index: 2;
   box-shadow: 0 4px 20px rgba(15,30,60,0.14), 0 1px 4px rgba(15,30,60,0.08);
   transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+  -webkit-tap-highlight-color: transparent;
 }
 .cg-arrow:hover {
   background: #e07b2a;
   color: #fff;
-  transform: translateY(-2px) scale(1.06);
+  transform: scale(1.08);
   box-shadow: 0 8px 24px rgba(224,123,42,0.35);
 }
-.cg-arrow:active { transform: scale(0.95); }
+.cg-arrow:active { transform: scale(0.93); }
 
-/* ── Dots + progress row ── */
+/* ── Dots ── */
 .cg-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 .cg-dots {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  margin-top: 20px;
 }
 .cg-dot {
   width: 8px; height: 8px;
-  border-radius: 50%;
+  border-radius: 4px;
   border: none;
   background: #c0cfe0;
   cursor: pointer;
   padding: 0;
-  transition: background 0.25s, transform 0.25s, width 0.3s;
+  transition: background 0.25s, width 0.3s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 .cg-dot.active {
   background: #e07b2a;
-  width: 26px;
-  border-radius: 4px;
+  width: 24px;
 }
+.cg-dot:hover:not(.active) { background: #94a3b8; transform: scale(1.2); }
 
-/* ── Progress bar — shown on desktop ── */
-.cg-progress {
-  display: none;
+/* ── Autoplay progress bar ──
+   A thin line that fills left-to-right over AUTOPLAY_MS.
+   Lives between the slider and the dots.
+   On mobile it's slightly thicker for visibility.
+   Respects prefers-reduced-motion (hidden when reduced). */
+.cg-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(15, 30, 60, 0.10);
+  border-radius: 2px;
+  margin: 14px 0 0;
+  overflow: hidden;
 }
-
-/* ── Responsive ── */
-@media (max-width: 1023px) {
-  .cg-slide { min-width: calc(100% / 2); }
-  .cg-slide-inner { height: 260px; }
+.cg-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #e07b2a 0%, #f59c4a 100%);
+  border-radius: 2px;
+  /* No CSS transition — width is driven by rAF in JS for accuracy */
+  will-change: width;
 }
 @media (max-width: 767px) {
-  .gallery-section { padding: 72px 16px 60px; }
-  .cg-slider-wrap { gap: 8px; padding: 8px 0 16px; }
-  /* 1 slide visible on phones */
-  .cg-slide { min-width: 100%; padding: 0 6px; }
-  .cg-slide-inner { height: 240px; border-radius: 14px; }
-  .cg-viewport { padding: 8px 0; border-radius: 14px; }
-  .cg-track { margin: 0; }
-  .cg-arrow { width: 40px; height: 40px; }
-  .cg-dot { width: 7px; height: 7px; }
-  .cg-dot.active { width: 20px; }
+  .cg-progress-track { height: 4px; margin-top: 10px; }
 }
-@media (max-width: 480px) {
-  .gallery-section { padding: 60px 12px 48px; }
-  .gallery-title { font-size: 1.7rem; }
-  .gallery-subtitle { font-size: 0.85rem; }
-  .cg-slide { min-width: 100%; padding: 0 4px; }
-  .cg-slide-inner { height: 220px; }
-  .cg-slide-inner { aspect-ratio: 4 / 3; border-radius: 14px; }
-  .cg-slide img { border-radius: 14px; }
-  .cg-arrow { width: 36px; height: 36px; }
+@media (prefers-reduced-motion: reduce) {
+  .cg-progress-track { display: none; }
+}
+
+/* ── Tablet: 2-up ── */
+@media (max-width: 1023px) {
+  .cg-slide {
+    min-width: calc(100% / 2);
+    width:     calc(100% / 2);
+  }
+  .cg-slide-inner { aspect-ratio: 4 / 3; }
+}
+
+/* ── Mobile: 1-up — the critical fix ── */
+@media (max-width: 767px) {
+  .gallery-section { padding: 64px 0 48px; }
+
+  /* Arrows: smaller, closer to image edges */
+  .cg-slider-wrap {
+    gap: 6px;
+    padding: 4px 0 16px;
+  }
+  .cg-arrow {
+    width: 38px; height: 38px;
+  }
+  .cg-arrow svg { width: 18px; height: 18px; }
+
+  /* ONE slide at a time */
+  .cg-slide {
+    min-width: 100%;
+    width:     100%;
+  }
+
+  /* Inner card: tighter gutter on mobile, taller aspect ratio */
+  .cg-slide-inner {
+    margin: 4px 6px;
+    width: calc(100% - 12px);
+    aspect-ratio: 4 / 3;      /* consistent height across all images */
+    border-radius: 12px;
+  }
+
+  /* No scale animation on mobile (perf + no hover states) */
+  .cg-slide img { transform: scale(1); }
+  .cg-slide img.img-loaded { transform: scale(1); }
+
+  /* Dots: slightly larger tap targets on mobile */
+  .cg-dots { gap: 6px; margin-top: 14px; }
+  .cg-dot  { width: 7px; height: 7px; }
+  .cg-dot.active { width: 22px; }
+}
+
+/* ── Small phones ── */
+@media (max-width: 400px) {
+  .cg-arrow { width: 34px; height: 34px; }
+  .cg-arrow svg { width: 16px; height: 16px; }
+  .cg-slide-inner {
+    margin: 4px 4px;
+    width: calc(100% - 8px);
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
 }
 
 /* ============================================================
@@ -1508,11 +1587,4 @@ img.error, img[src=""], img:not([src]) { opacity: 0 !important; animation: none 
 .prod-img-main img { position: relative; z-index: 1; }
 .prod-img-main img.loaded { animation: none; background: none; }
 
-/* Gallery slide placeholder */
-.cg-slide {
-  background: transparent;
-}
-.cg-slide img.loaded {
-  animation: none;
-  background: none;
-}
+/* Gallery slide placeholder — handled in main slider block above */
