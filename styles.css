@@ -272,9 +272,26 @@ a { text-decoration: none; }
 }
 
 @media (max-width: 768px) {
-  .gm-topbar { display: none; }
-  .gm-nav { top: 0; }
-  body { padding-top: 76px; }
+  /* Compact single-row topbar on mobile */
+  .gm-topbar { display: block; }
+  .topbar-inner {
+    height: 32px;
+    padding: 0 14px;
+    gap: 8px;
+  }
+  .topbar-left {
+    gap: 10px;
+  }
+  .topbar-link {
+    font-size: 0.67rem;
+  }
+  .topbar-link svg { width: 11px; height: 11px; }
+  /* Hide badges row on mobile — keep only contact links */
+  .topbar-right { display: none; }
+  .topbar-divider { display: none; }
+  /* Nav sits below the 32px topbar */
+  .gm-nav { top: 32px; }
+  body { padding-top: calc(32px + 76px); }
   .nav-links { display: none; }
   /* Hide CTA button on mobile — bottom nav already has Contact */
   .nav-cta-wrap { display: none; }
@@ -322,6 +339,9 @@ a { text-decoration: none; }
   background: linear-gradient(135deg, #060c1a 0%, #0c1830 50%, #131f40 100%);
   padding: 100px 24px 72px;
   position: relative; overflow: hidden; text-align: center;
+}
+@media (max-width: 768px) {
+  .page-hero { padding-top: 120px; }
 }
 
 .page-hero::after {
@@ -467,6 +487,10 @@ a { text-decoration: none; }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
+}
+@media (max-width: 768px) {
+  /* Adjust hero bleed to match mobile header: 32px topbar + 76px nav = 108px */
+  .hero { margin-top: -108px; padding-top: 108px; }
 }
 
 .hero-tag {
@@ -1060,7 +1084,8 @@ a { text-decoration: none; }
 @media (max-width: 639px) {
   .gallery-section { padding: 72px 16px 60px; }
   .cg-slider-wrap { gap: 8px; padding: 8px 0 16px; }
-  .cg-slide { min-width: calc(100% / 2); padding: 0 6px; }
+  /* 1 slide visible on phones */
+  .cg-slide { min-width: 100%; padding: 0 6px; }
   .cg-slide-inner { height: auto; aspect-ratio: 4 / 3; border-radius: 16px; }
   .cg-slide img { border-radius: 16px; }
   .cg-viewport { padding: 0; overflow: hidden; }
