@@ -37,10 +37,12 @@ function initImgFallbacks() {
   function handleImg(img) {
     if (img.complete && img.naturalWidth > 0) {
       img.classList.add('loaded');
+      img.classList.add('img-loaded');
       return;
     }
     img.addEventListener('load', function () {
       this.classList.add('loaded');
+      this.classList.add('img-loaded');
     });
     img.addEventListener('error', function () {
       this.classList.add('error');

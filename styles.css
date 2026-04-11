@@ -943,11 +943,11 @@ a { text-decoration: none; }
   flex: 1;
   position: relative;
   overflow: hidden;
-  border-radius: 0;
+  border-radius: 20px;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  padding: 0;
+  padding: 12px 0;
 }
 .cg-viewport.is-dragging { cursor: grabbing; }
 
@@ -956,23 +956,24 @@ a { text-decoration: none; }
   display: flex;
   will-change: transform;
   margin: 0;
+  align-items: stretch;
 }
 
 /* ── Slide ── */
 .cg-slide {
   min-width: calc(100% / 3);
-  padding: 0 8px;
+  padding: 0 10px;
   box-sizing: border-box;
   flex-shrink: 0;
   transition: transform 0.45s ease, opacity 0.45s ease;
-  opacity: 1;
+  opacity: 0.75;
 }
 .cg-slide.is-active {
   opacity: 1;
   transform: none;
 }
 .cg-slide.is-side {
-  opacity: 1;
+  opacity: 0.85;
 }
 
 /* ── Inner card ── */
@@ -980,40 +981,61 @@ a { text-decoration: none; }
   position: relative;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 18px;
-  background: #fff;
+  /* Fixed height so all cards are equal — no aspect-ratio surprises */
+  height: 300px;
+  border-radius: 16px;
+  background: #e8eef5;
   box-shadow: 0 4px 20px rgba(15,30,60,0.10), 0 1px 4px rgba(15,30,60,0.06);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 .cg-slide.is-active .cg-slide-inner {
   box-shadow: 0 12px 40px rgba(15,30,60,0.18), 0 2px 8px rgba(224,123,42,0.12);
 }
 .cg-slide-inner:hover {
-  box-shadow: 0 16px 48px rgba(15,30,60,0.20), 0 3px 12px rgba(224,123,42,0.15);
-  transform: translateY(-4px);
+  box-shadow: 0 20px 52px rgba(15,30,60,0.22), 0 3px 14px rgba(224,123,42,0.16);
+  transform: translateY(-6px);
 }
-.cg-slide-inner.loaded { background: #fff; }
+.cg-slide-inner.loaded { background: #e8eef5; }
 
-/* ── Image ── */
+/* ── Image inside slide — always fills card completely ── */
 .cg-slide img {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 18px;
+  border-radius: 0;
+  /* Start invisible until loaded */
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.4s ease;
-  transform: scale(1.02);
+  transition: opacity 0.4s ease, transform 0.45s ease;
+  transform: scale(1.04);
   pointer-events: none;
+  /* Override global skeleton shimmer for slides — dark bg handles it */
+  background: none;
+  animation: none;
 }
 .cg-slide img.img-loaded {
   opacity: 1;
   transform: scale(1);
+  animation: none;
+  background: none;
 }
 .cg-slide-inner:hover img {
-  transform: scale(1.06);
+  transform: scale(1.07);
+}
+
+/* Skeleton shimmer for gallery cards (while image loads) */
+.cg-slide-inner:not(.loaded)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #dce4ef 25%, #eaf0f8 50%, #dce4ef 75%);
+  background-size: 600px 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: 16px;
+  z-index: 0;
 }
 
 /* Caption — hidden */
@@ -1078,16 +1100,15 @@ a { text-decoration: none; }
 /* ── Responsive ── */
 @media (max-width: 1023px) {
   .cg-slide { min-width: calc(100% / 2); }
-  .cg-slide-inner { aspect-ratio: 4 / 3; }
+  .cg-slide-inner { height: 260px; }
 }
 @media (max-width: 767px) {
   .gallery-section { padding: 72px 16px 60px; }
   .cg-slider-wrap { gap: 8px; padding: 8px 0 16px; }
   /* 1 slide visible on phones */
   .cg-slide { min-width: 100%; padding: 0 6px; }
-  .cg-slide-inner { aspect-ratio: 4 / 3; border-radius: 16px; }
-  .cg-slide img { border-radius: 16px; }
-  .cg-viewport { padding: 0; overflow: hidden; }
+  .cg-slide-inner { height: 240px; border-radius: 14px; }
+  .cg-viewport { padding: 8px 0; border-radius: 14px; }
   .cg-track { margin: 0; }
   .cg-arrow { width: 40px; height: 40px; }
   .cg-dot { width: 7px; height: 7px; }
@@ -1098,6 +1119,7 @@ a { text-decoration: none; }
   .gallery-title { font-size: 1.7rem; }
   .gallery-subtitle { font-size: 0.85rem; }
   .cg-slide { min-width: 100%; padding: 0 4px; }
+  .cg-slide-inner { height: 220px; }
   .cg-slide-inner { aspect-ratio: 4 / 3; border-radius: 14px; }
   .cg-slide img { border-radius: 14px; }
   .cg-arrow { width: 36px; height: 36px; }
@@ -1439,11 +1461,11 @@ img {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-img.loaded, img[src=""] {
+img.loaded, img.img-loaded, img[src=""] {
   animation: none;
   background: none;
 }
-img.loaded { opacity: 1; }
+img.loaded, img.img-loaded { opacity: 1; }
 /* Hide broken images cleanly — no white flash */
 img.error, img[src=""], img:not([src]) { opacity: 0 !important; animation: none !important; background: transparent !important; }
 
