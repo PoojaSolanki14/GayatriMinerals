@@ -344,7 +344,7 @@ function injectGalleryImages() {
 
   /* ── Helpers ─────────────────────────────────────────────*/
   function visCount() {
-    return window.innerWidth < 640 ? 1
+    return window.innerWidth < 768 ? 1
          : window.innerWidth < 1024 ? 2 : 3;
   }
 
@@ -721,7 +721,7 @@ function injectGalleryImages() {
   var TOTAL = 0;
 
   function rpGetVisible() {
-    return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    return window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
   }
 
   function rpUpdate() {

@@ -1081,7 +1081,7 @@ a { text-decoration: none; }
   .cg-slide { min-width: calc(100% / 2); }
   .cg-slide-inner { height: auto; aspect-ratio: 4 / 3; }
 }
-@media (max-width: 639px) {
+@media (max-width: 767px) {
   .gallery-section { padding: 72px 16px 60px; }
   .cg-slider-wrap { gap: 8px; padding: 8px 0 16px; }
   /* 1 slide visible on phones */
